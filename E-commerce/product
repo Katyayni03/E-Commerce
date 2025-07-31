@@ -1,0 +1,36 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import './ProductCard.css'; // Assuming you’ve got a separate CSS file for styles
+
+function ProductCard({ product, onSelect }) {
+  return (
+    <div className="product-card" onClick={() => onSelect(product)}>
+      <img className="product-image" src={product.image} alt={product.name} />
+      <div className="product-info">
+        <h4 className="product-name">{product.name}</h4>
+        <p className="product-price">₹{product.price}</p>
+        <button
+          className="add-cart-btn"
+          onClick={(e) => {
+            e.stopPropagation(); // Prevent triggering onSelect
+            alert(`Added ${product.name} to cart!`);
+          }
+        >
+          Add to Cart
+        </button>
+      </div>
+    </div>
+  );
+}
+
+ProductCard.propTypes = {
+  product: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    price: PropTypes.number,
+    image: PropTypes.string,
+  }).isRequired,
+  onSelect: PropTypes.func.isRequired,
+};
+
+export default ProductCard;
